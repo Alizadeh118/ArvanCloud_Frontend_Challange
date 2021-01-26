@@ -1,0 +1,17 @@
+.b-sidebar-outer {
+  position: relative;
+  height: auto;
+}
+
+.nav-link {
+  color: #fff;
+  padding-left: 2.2em;
+
+  &.active {
+    background-color: fade_out(#fff, .85)
+  }
+
+  @include hover-focus() {
+    color: fade_out(#fff, .30)
+  }
+}

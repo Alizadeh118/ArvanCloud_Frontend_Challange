@@ -10,7 +10,8 @@ $light:                  #eceeef;
 $dark:                   #707070;
 $link-color:             $secondary;
 $body-color:             $secondary;
-//HelveticaNeue
+
+$b-sidebar-width: 250px;
 
 
 //$gray-100: #f8f9fa !default;
@@ -26,3 +27,4 @@ $body-color:             $secondary;
 
 @import 'bootstrap/scss/bootstrap.scss';
 @import 'bootstrap-vue/src/index.scss';
+@import "sidebar";
