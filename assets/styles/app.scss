@@ -1,0 +1,28 @@
+$font-family-sans-serif: "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+$primary:                #1c7cd5; // water-blue
+$secondary:              #373a3c; // charcoal-grey
+$success:                #5cb85c;
+$info:                   #56c0e0;
+$warning:                #f0ad4e;
+$danger:                 #d9534f;
+$light:                  #eceeef;
+$dark:                   #707070;
+$link-color:             $secondary;
+$body-color:             $secondary;
+//HelveticaNeue
+
+
+//$gray-100: #f8f9fa !default;
+//$gray-200: #e9ecef !default;
+//$gray-300: #dee2e6 !default;
+//$gray-400: #ced4da !default;
+//$gray-500: #adb5bd !default;
+//$gray-600: #6c757d !default;
+//$gray-700: #495057 !default;
+//$gray-800: #343a40 !default;
+//$gray-900: #212529 !default;
+
+
+@import 'bootstrap/scss/bootstrap.scss';
+@import 'bootstrap-vue/src/index.scss';
