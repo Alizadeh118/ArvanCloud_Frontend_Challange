@@ -3,8 +3,19 @@
     <b-row align-h="center" align-v="center" class="vh-100">
       <b-col cols="11" sm="9" md="7" lg="5">
         <b-card bg-variant="light">
-          <b-card-title title="LOGIN" title-tag="h1" class="text-center text-dark font-weight-normal" />
+          <b-card-title title="Register" title-tag="h1" class="text-center text-dark font-weight-normal" />
           <b-form class="mb-3" novalidate @submit.stop.prevent="onSubmit">
+            <b-form-group label="User" label-for="user">
+              <b-form-input
+                id="user"
+                ref="user"
+                v-model="form.user"
+                required
+                :state="validation.user.state"
+              />
+              <b-form-invalid-feedback>{{ validation.user.error.join(' - ') }}</b-form-invalid-feedback>
+            </b-form-group>
+
             <b-form-group label="Email" label-for="email">
               <b-form-input
                 id="email"
@@ -30,13 +41,13 @@
             </b-form-group>
 
             <b-button type="submit" variant="primary" block>
-              Login
+              Register
             </b-button>
           </b-form>
           <b-card-text class="text-secondary">
-            Don't have account?
-            <nuxt-link to="/register" class="ml-2">
-              <b class="text-nowrap">Register Now</b>
+            Already Registered?
+            <nuxt-link to="/login" class="ml-2">
+              <b class="text-nowrap">Login</b>
             </nuxt-link>
           </b-card-text>
         </b-card>
@@ -51,10 +62,16 @@ export default {
   data () {
     return {
       form: {
+        user: '',
         email: '',
         password: ''
       },
       validation: {
+        user: {
+          rules: ['required'],
+          state: null,
+          error: []
+        },
         email: {
           rules: ['required', 'email'],
           state: null,

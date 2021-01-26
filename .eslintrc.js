@@ -14,6 +14,6 @@ module.exports = {
   plugins: [
   ],
   rules: {
-    'arrow-parens': [2, 'as-needed']
+    'arrow-parens': ['error', 'as-needed']
   }
 }
