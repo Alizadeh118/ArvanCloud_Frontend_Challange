@@ -16,7 +16,7 @@
     <div class="d-md-none w-100">
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item href="#">
+          <b-nav-item to="/articles">
             All Articles
           </b-nav-item>
           <b-nav-item href="#">

@@ -8,7 +8,7 @@
     no-header-close
   >
     <b-nav vertical>
-      <b-nav-item>All Articles</b-nav-item>
+      <b-nav-item to="/articles">All Articles</b-nav-item>
       <b-nav-item>New Article</b-nav-item>
     </b-nav>
   </b-sidebar>

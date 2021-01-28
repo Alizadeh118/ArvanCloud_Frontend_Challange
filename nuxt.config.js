@@ -10,11 +10,22 @@ export default {
     },
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1'
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: ''
+      }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon.ico'
+      }
     ]
   },
 
@@ -23,9 +34,16 @@ export default {
     '@/assets/styles/app.scss'
   ],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-  ],
+  router: {
+    linkActiveClass: 'active',
+    extendRoutes (routes, resolve) {
+      routes.push({
+        name: 'articles',
+        path: '/articles',
+        component: resolve(__dirname, 'pages/articles/page/_page.vue')
+      })
+    }
+  },
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -50,9 +68,10 @@ export default {
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseURL: 'https://conduit.productionready.io/api'
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-  }
+  build: {}
 }
