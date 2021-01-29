@@ -12,7 +12,7 @@
       Logout
     </b-button>
 
-    <b-navbar-toggle target="nav-collapse" class="ml-2"/>
+    <b-navbar-toggle target="nav-collapse" class="ml-2" />
     <div class="d-md-none w-100">
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
@@ -29,11 +29,11 @@
 </template>
 
 <script>
-  export default {
-    computed: {
-      active () {
-        return /^\/articles(\/page\/\d+|$)/.test(this.$route.path)
-      }
+export default {
+  computed: {
+    active () {
+      return /^\/articles(\/page\/\d+|$)/.test(this.$route.path)
     }
   }
+}
 </script>

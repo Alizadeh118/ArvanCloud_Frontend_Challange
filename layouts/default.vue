@@ -3,7 +3,13 @@
     <Navbar />
     <div class="d-flex">
       <Sidebar />
-      <Nuxt />
+      <b-container fluid class="px-4 mb-4">
+        <b-row>
+          <b-col cols="12">
+            <Nuxt />
+          </b-col>
+        </b-row>
+      </b-container>
     </div>
   </div>
 </template>

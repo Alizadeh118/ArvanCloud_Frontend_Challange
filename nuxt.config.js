@@ -116,6 +116,11 @@ export default {
     }
   },
 
+  eslint: {
+    cache: false,
+    fix: true
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {}
 }

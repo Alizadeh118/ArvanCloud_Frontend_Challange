@@ -43,7 +43,7 @@
             <b-button type="submit" variant="primary" block :disabled="$nuxt.$loading.show">
               <div class="d-flex align-items-center justify-content-center position-relative">
                 <span>Register</span>
-                <b-spinner v-show="$nuxt.$loading.show" small class="position-absolute right-0"/>
+                <b-spinner v-show="$nuxt.$loading.show" small class="position-absolute right-0" />
               </div>
             </b-button>
           </b-form>

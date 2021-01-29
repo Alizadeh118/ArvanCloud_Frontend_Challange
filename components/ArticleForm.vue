@@ -1,29 +1,180 @@
 <template>
-  <svg class="NuxtLogo" width="245" height="180" viewBox="0 0 452 342" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M139 330l-1-2c-2-4-2-8-1-13H29L189 31l67 121 22-16-67-121c-1-2-9-14-22-14-6 0-15 2-22 15L5 303c-1 3-8 16-2 27 4 6 10 12 24 12h136c-14 0-21-6-24-12z"
-      fill="#00C58E"
-    />
-    <path
-      d="M447 304L317 70c-2-2-9-15-22-15-6 0-15 3-22 15l-17 28v54l39-67 129 230h-49a23 23 0 0 1-2 14l-1 1c-6 11-21 12-23 12h76c3 0 17-1 24-12 3-5 5-14-2-26z"
-      fill="#108775"
-    />
-    <path
-      d="M376 330v-1l1-2c1-4 2-8 1-12l-4-12-102-178-15-27h-1l-15 27-102 178-4 12a24 24 0 0 0 2 15c4 6 10 12 24 12h190c3 0 18-1 25-12zM256 152l93 163H163l93-163z"
-      fill="#2F495E"
-    />
-  </svg>
+  <b-form novalidate @submit.stop.prevent="onSubmit">
+    <b-row>
+      <b-col cols="10">
+        <b-form-group label="Title" label-for="title">
+          <b-form-input
+            id="title"
+            ref="title"
+            v-model="form.title"
+            type="text"
+            placeholder="Title"
+            required
+            :state="validation.title.state"
+          />
+          <b-form-invalid-feedback>{{ validation.title.error.join(' - ') }}</b-form-invalid-feedback>
+        </b-form-group>
+        <b-form-group label="Description" label-for="description">
+          <b-form-input
+            id="description"
+            ref="description"
+            v-model="form.description"
+            type="text"
+            placeholder="Description"
+            required
+            :state="validation.description.state"
+          />
+          <b-form-invalid-feedback>{{ validation.description.error.join(' - ') }}</b-form-invalid-feedback>
+        </b-form-group>
+        <b-form-group label="Body" label-for="body">
+          <b-form-textarea
+            id="body"
+            ref="body"
+            v-model="form.body"
+            rows="10"
+            required
+            :state="validation.body.state"
+          />
+          <b-form-invalid-feedback>{{ validation.body.error.join(' - ') }}</b-form-invalid-feedback>
+        </b-form-group>
+
+        <b-button type="submit" variant="primary" class="px-4" :disabled="$nuxt.$loading.show">
+          <b-spinner v-if="$nuxt.$loading.show" small />
+          <span v-else>Submit</span>
+        </b-button>
+      </b-col>
+      <b-col cols="2">
+        <b-form-group label="Tags" label-for="tag">
+          <b-form-input
+            id="tag"
+            ref="tag"
+            v-model="tag"
+            type="text"
+            placeholder="New tag"
+            @keypress.prevent.enter="createTag"
+          />
+        </b-form-group>
+        <b-form-group>
+          <div v-if="fetchingTags" class="text-center">
+            <b-spinner variant="primary" />
+          </div>
+          <b-form-checkbox-group
+            v-else
+            v-model="form.tagList"
+            :options="$store.state.tag.tags"
+            stacked
+            class="border pl-3 py-2 rounded"
+          />
+        </b-form-group>
+      </b-col>
+    </b-row>
+  </b-form>
 </template>
 
-<style>
-.NuxtLogo {
-  animation: 1s appear;
-  margin: auto;
-}
+<script>
+export default {
+  data () {
+    return {
+      form: {
+        title: '',
+        description: '',
+        body: '',
+        tagList: []
+      },
+      tag: '',
+      fetchingTags: true,
+      validation: {
+        title: {
+          rules: ['required'],
+          state: null,
+          error: []
+        },
+        description: {
+          rules: ['required'],
+          state: null,
+          error: []
+        },
+        body: {
+          rules: ['required'],
+          state: null,
+          error: []
+        }
+      }
+    }
+  },
+  created () {
+    this.fetchTags()
+  },
+  methods: {
+    fetchTags () {
+      this.fetchingTags = true
+      this.$store.dispatch('tag/index')
+        .catch(e => {
+          this.$bvToast.toast('The tag list could not be fetched', {
+            title: 'API Error',
+            variant: 'danger',
+            solid: true
+          })
+          /* eslint-disable no-console */
+          console.log('Error with fetching the tags: ', e)
+        })
+        .finally(() => (this.fetchingTags = false))
+    },
+    async createArticle () {
+      this.$nuxt.$loading.start()
+      try {
+        await this.$store.dispatch('article/store', {
+          article: this.form
+        })
+        return this.$router.push({ name: 'articles', params: { articleCreated: 'articleCreated' } })
+      } catch (e) {
+        if (e.response?.data?.errors) {
+          for (const key in e.response.data.errors) {
+            this.validation[key].state = false
+            this.validation[key].error = e.response.data.errors[key]
+          }
+        }
+      } finally {
+        this.$nuxt.$loading.finish()
+      }
+    },
+    createTag () {
+      this.$store.dispatch('tag/store', this.tag)
+      this.form.tagList.push(this.tag)
+      this.tag = ''
+    },
+    onSubmit () {
+      if (!this.validateForm()) {
+        // focus on the first input has error
+        const unvalidated = Object.entries(this.validation).find(item => item[1].state === false)
+        this.$refs[unvalidated[0]].focus()
+        return
+      }
+      return this.createArticle()
+    },
+    validateForm () {
+      this.resetValidation()
 
-@keyframes appear {
-  0% {
-    opacity: 0;
+      Object.keys(this.validation).forEach(key => {
+        // required validation
+        if (this.validation[key].rules.includes('required')) {
+          if (!this.form[key].length) {
+            this.validation[key].state = false
+            this.validation[key].error.push('Required Field')
+          }
+        }
+      })
+
+      return !Object.values(this.validation).some(v => v.state === false)
+      // == Object.values(this.validation).every(v => v.state === null)
+      // but I guess there is a performance advantage with another one in term of using "some"
+    },
+    resetValidation () {
+      Object.keys(this.validation).forEach(key => {
+        this.validation[key].state = null
+        this.validation[key].error = []
+      })
+    }
   }
 }
-</style>
+</script>

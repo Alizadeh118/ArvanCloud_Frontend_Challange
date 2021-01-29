@@ -29,5 +29,13 @@ export const actions = {
     } catch ( e ) {
       return Promise.reject(e)
     }
+  },
+  async store (ctx, article) {
+    try {
+      await this.$axios.$post('/articles', article)
+      return Promise.resolve()
+    } catch ( e ) {
+      return Promise.reject(e)
+    }
   }
 }
