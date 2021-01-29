@@ -1,0 +1,10 @@
+$directions: left, right, top, bottom;
+$positions:  0, 50, 100;
+
+@each $direction in $directions {
+  @each $position in $positions {
+    .#{$direction}-#{$position} {
+      #{$direction}: $position * 1%;
+    }
+  }
+}

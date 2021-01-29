@@ -8,8 +8,22 @@
     no-header-close
   >
     <b-nav vertical>
-      <b-nav-item to="/articles">All Articles</b-nav-item>
-      <b-nav-item>New Article</b-nav-item>
+      <b-nav-item to="/articles" :active="active" exact>
+        All Articles
+      </b-nav-item>
+      <b-nav-item to="/articles/create">
+        New Article
+      </b-nav-item>
     </b-nav>
   </b-sidebar>
 </template>
+
+<script>
+export default {
+  computed: {
+    active () {
+      return /^\/articles(\/page\/\d+|$)/.test(this.$route.path)
+    }
+  }
+}
+</script>

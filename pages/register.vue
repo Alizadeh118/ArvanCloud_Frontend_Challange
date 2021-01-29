@@ -5,15 +5,15 @@
         <b-card bg-variant="light">
           <b-card-title title="Register" title-tag="h1" class="text-center text-dark font-weight-normal" />
           <b-form class="mb-3" novalidate @submit.stop.prevent="onSubmit">
-            <b-form-group label="User" label-for="user">
+            <b-form-group label="User" label-for="username">
               <b-form-input
-                id="user"
-                ref="user"
-                v-model="form.user"
+                id="username"
+                ref="username"
+                v-model="form.username"
                 required
-                :state="validation.user.state"
+                :state="validation.username.state"
               />
-              <b-form-invalid-feedback>{{ validation.user.error.join(' - ') }}</b-form-invalid-feedback>
+              <b-form-invalid-feedback>{{ validation.username.error.join(' - ') }}</b-form-invalid-feedback>
             </b-form-group>
 
             <b-form-group label="Email" label-for="email">
@@ -40,8 +40,11 @@
               <b-form-invalid-feedback>{{ validation.password.error.join(' - ') }}</b-form-invalid-feedback>
             </b-form-group>
 
-            <b-button type="submit" variant="primary" block>
-              Register
+            <b-button type="submit" variant="primary" block :disabled="$nuxt.$loading.show">
+              <div class="d-flex align-items-center justify-content-center position-relative">
+                <span>Register</span>
+                <b-spinner v-show="$nuxt.$loading.show" small class="position-absolute right-0"/>
+              </div>
             </b-button>
           </b-form>
           <b-card-text class="text-secondary">
@@ -58,16 +61,17 @@
 
 <script>
 export default {
+  auth: 'guest',
   layout: 'guest',
   data () {
     return {
       form: {
-        user: '',
+        username: '',
         email: '',
         password: ''
       },
       validation: {
-        user: {
+        username: {
           rules: ['required'],
           state: null,
           error: []
@@ -86,6 +90,22 @@ export default {
     }
   },
   methods: {
+    async register () {
+      this.$nuxt.$loading.start()
+      try {
+        const data = await this.$axios.$post('/users', {
+          user: this.form
+        })
+        await this.$auth.setUserToken(data.user.token)
+      } catch (e) {
+        for (const key in e.response.data.errors) {
+          this.validation[key].state = false
+          this.validation[key].error = e.response.data.errors[key]
+        }
+      } finally {
+        this.$nuxt.$loading.finish()
+      }
+    },
     onSubmit () {
       if (!this.validateForm()) {
         // focus on the first input has error
@@ -93,7 +113,7 @@ export default {
         this.$refs[unvalidated[0]].focus()
         return
       }
-      alert(JSON.stringify(this.form))
+      return this.register()
     },
     validateForm () {
       this.resetValidation()

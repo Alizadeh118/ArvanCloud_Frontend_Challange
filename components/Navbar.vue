@@ -5,21 +5,21 @@
     </b-navbar-brand>
 
     <b-navbar-nav>
-      <b-nav-text>Welcome Hassan</b-nav-text>
+      <b-nav-text>Welcome {{ this.$auth.user.username }}</b-nav-text>
     </b-navbar-nav>
 
-    <b-button variant="outline-info ml-auto">
+    <b-button variant="outline-info ml-auto" @click="$auth.logout()">
       Logout
     </b-button>
 
-    <b-navbar-toggle target="nav-collapse" class="ml-2" />
+    <b-navbar-toggle target="nav-collapse" class="ml-2"/>
     <div class="d-md-none w-100">
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item to="/articles">
+          <b-nav-item to="/articles" :active="active" exact>
             All Articles
           </b-nav-item>
-          <b-nav-item href="#">
+          <b-nav-item to="/articles/create">
             New Article
           </b-nav-item>
         </b-navbar-nav>
@@ -27,3 +27,13 @@
     </div>
   </b-navbar>
 </template>
+
+<script>
+  export default {
+    computed: {
+      active () {
+        return /^\/articles(\/page\/\d+|$)/.test(this.$route.path)
+      }
+    }
+  }
+</script>
