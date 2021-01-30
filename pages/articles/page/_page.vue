@@ -19,15 +19,15 @@
           {{ (currentPage - 1) * perPage + data.index + 1 }}
         </template>
 
-        <template #cell(createdAt)="{value}">
+        <template #cell(createdAt)="data">
           <div class="d-flex align-items-center justify-content-end">
-            <span class="mr-3">{{ value }}</span>
+            <span class="mr-3">{{ data.value }}</span>
             <b-dropdown right text="... " variant="info" class="text-white">
               <b-dropdown-item href="#">
                 Edit
               </b-dropdown-item>
               <b-dropdown-divider />
-              <b-dropdown-item href="#">
+              <b-dropdown-item @click="showDeleteModal(data.item.slug)">
                 Delete
               </b-dropdown-item>
             </b-dropdown>
@@ -158,6 +158,7 @@ export default {
   },
   methods: {
     fetchArticles () {
+      this.busy = true
       this.$store.dispatch('article/index', this.currentPage - 1)
         .catch(e => {
           this.$bvToast.toast('The articles could not be fetched', {
@@ -170,6 +171,43 @@ export default {
         })
         .finally(() => {
           this.busy = false
+        })
+    },
+    removeArticle (slug) {
+      this.$store.dispatch('article/destroy', slug)
+        .then(() => {
+          this.$bvToast.toast('Article deleted successfully', {
+            title: 'API Error',
+            variant: 'danger',
+            solid: true,
+            noCloseButton: true
+          })
+          this.fetchArticles()
+        })
+        .catch(e => {
+          const error = e.response?.data?.errors?.article?.[0] || 'The article could not be removed'
+          this.$bvToast.toast(error, {
+            title: 'API Error',
+            variant: 'danger',
+            solid: true
+          })
+          /* eslint-disable no-console */
+          console.log('Error with removing the article: ', e)
+        })
+    },
+    showDeleteModal (slug) {
+      this.$bvModal.msgBoxConfirm('Are you sure to delete Article?', {
+        title: 'Delete Article',
+        okVariant: 'danger',
+        cancelVariant: 'outline-dark',
+        okTitle: 'Yes',
+        cancelTitle: 'No',
+        footerClass: 'p-2'
+      })
+        .then(res => {
+          if (res) {
+            this.removeArticle(slug)
+          }
         })
     },
     linkGen (pageNum) {

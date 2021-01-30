@@ -37,5 +37,13 @@ export const actions = {
     } catch ( e ) {
       return Promise.reject(e)
     }
+  },
+  async destroy (ctx, slug) {
+    try {
+      await this.$axios.$delete('/articles/' + slug)
+      return Promise.resolve()
+    } catch ( e ) {
+      return Promise.reject(e)
+    }
   }
 }

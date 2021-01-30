@@ -9,7 +9,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'ArvanCloud_Frontend_Challange',
+    title: 'Arvan‌ Challange',
     htmlAttrs: {
       lang: 'en'
     },
@@ -22,7 +22,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: ''
+        content: 'ArvanCloud Frontend Challenge'
       }
     ],
     link: [
