@@ -138,6 +138,9 @@ export default {
       ]
     }
   },
+  head: {
+    title: 'All Articles'
+  },
   computed: {
     articles () {
       return this.$store.state.article.articles

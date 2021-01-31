@@ -16,6 +16,9 @@ import ArticleForm from '@/components/ArticleForm'
 export default {
   components: {
     ArticleForm
+  },
+  head: {
+    title: 'New Article'
   }
 }
 </script>

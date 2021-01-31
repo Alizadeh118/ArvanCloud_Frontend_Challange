@@ -17,6 +17,9 @@ export default {
   components: {
     ArticleForm
   },
+  head: {
+    title: 'Edit Article'
+  },
   computed: {
     slug () {
       return this.$route.params.slug

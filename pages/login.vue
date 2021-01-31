@@ -69,6 +69,9 @@ export default {
       }
     }
   },
+  head: {
+    title: 'Login'
+  },
   methods: {
     async login () {
       this.$nuxt.$loading.start()

@@ -87,6 +87,9 @@ export default {
       }
     }
   },
+  head: {
+    title: 'Register'
+  },
   methods: {
     async register () {
       this.$nuxt.$loading.start()

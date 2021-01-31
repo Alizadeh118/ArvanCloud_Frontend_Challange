@@ -1,4 +1,4 @@
-# ArvanCloud_Frontend_Challange
+# ArvanCloud Frontend Challenge
 
 ## Build Setup
 
