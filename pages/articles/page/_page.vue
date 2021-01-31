@@ -7,6 +7,7 @@
     </b-col>
     <b-col>
       <b-table
+        responsive
         hover
         head-variant="light"
         :fields="fields"
@@ -202,7 +203,8 @@ export default {
         cancelVariant: 'outline-dark',
         okTitle: 'Yes',
         cancelTitle: 'No',
-        footerClass: 'p-2'
+        footerClass: 'p-2',
+        centered: true
       })
         .then(res => {
           if (res) {

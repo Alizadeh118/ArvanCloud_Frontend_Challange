@@ -1,7 +1,24 @@
+// override YIQ color space for info text color
 .btn-info {
   color: #fff;
 }
 
 .navbar-nav .nav-link {
   padding-left: .5rem;
+}
+
+.aside {
+  width:            $b-sidebar-width;
+  background-color: $primary;
+}
+
+.main {
+  width: 100%;
+  @include media-breakpoint-up(lg) {
+    width: calc(100% - #{$b-sidebar-width});
+  }
+}
+
+.auth-form {
+  max-width: $auth-max-width;
 }

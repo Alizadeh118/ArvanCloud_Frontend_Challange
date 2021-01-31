@@ -2,14 +2,18 @@
   <div>
     <Navbar />
     <div class="d-flex">
-      <Sidebar />
-      <b-container fluid class="px-4 mb-4">
-        <b-row>
-          <b-col cols="12">
-            <Nuxt />
-          </b-col>
-        </b-row>
-      </b-container>
+      <aside class="aside d-none d-lg-block">
+        <Sidebar />
+      </aside>
+      <main class="main">
+        <b-container fluid class="mb-3">
+          <b-row>
+            <b-col cols="12">
+              <Nuxt />
+            </b-col>
+          </b-row>
+        </b-container>
+      </main>
     </div>
   </div>
 </template>

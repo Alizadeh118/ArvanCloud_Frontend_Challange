@@ -110,7 +110,8 @@ export default {
           user: {
             url: '/user',
             method: 'get'
-          }
+          },
+          logout: false
         }
       }
     }

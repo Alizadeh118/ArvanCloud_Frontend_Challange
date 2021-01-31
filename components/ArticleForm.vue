@@ -1,7 +1,7 @@
 <template>
   <b-form novalidate @submit.stop.prevent="onSubmit">
     <b-row>
-      <b-col cols="10">
+      <b-col cols="12" md>
         <b-form-group label="Title" label-for="title">
           <b-form-input
             id="title"
@@ -37,13 +37,8 @@
           />
           <b-form-invalid-feedback>{{ validation.body.error.join(' - ') }}</b-form-invalid-feedback>
         </b-form-group>
-
-        <b-button type="submit" variant="primary" class="px-4" :disabled="$nuxt.$loading.show">
-          <b-spinner v-if="$nuxt.$loading.show" small />
-          <span v-else>Submit</span>
-        </b-button>
       </b-col>
-      <b-col cols="2">
+      <b-col cols="12" md="auto">
         <b-form-group label="Tags" label-for="tag">
           <b-form-input
             id="tag"
@@ -66,6 +61,12 @@
             class="border pl-3 py-2 rounded"
           />
         </b-form-group>
+      </b-col>
+      <b-col cols="12" class="text-center text-md-left">
+        <b-button type="submit" variant="primary" class="px-4" :disabled="$nuxt.$loading.show">
+          <b-spinner v-if="$nuxt.$loading.show" small />
+          <span v-else>Submit</span>
+        </b-button>
       </b-col>
     </b-row>
   </b-form>

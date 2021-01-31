@@ -1,10 +1,10 @@
 <template>
-  <b-navbar toggleable="md" type="dark" variant="secondary">
+  <b-navbar toggleable="lg" type="dark" variant="secondary">
     <b-navbar-brand>
       Arvan Challenge
     </b-navbar-brand>
 
-    <b-navbar-nav>
+    <b-navbar-nav class="d-none d-sm-flex">
       <b-nav-text>Welcome {{ this.$auth.user.username }}</b-nav-text>
     </b-navbar-nav>
 
@@ -13,9 +13,9 @@
     </b-button>
 
     <b-navbar-toggle target="nav-collapse" class="ml-2" />
-    <div class="d-md-none w-100">
+    <div class="d-lg-none w-100">
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav class="ml-auto">
+        <b-navbar-nav class="mt-4">
           <nav-items />
         </b-navbar-nav>
       </b-collapse>

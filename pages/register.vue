@@ -1,62 +1,60 @@
 <template>
-  <b-container>
-    <b-row align-h="center" align-v="center" class="vh-100">
-      <b-col cols="11" sm="9" md="7" lg="5">
-        <b-card bg-variant="light">
-          <b-card-title title="Register" title-tag="h1" class="text-center text-dark font-weight-normal" />
-          <b-form class="mb-3" novalidate @submit.stop.prevent="onSubmit">
-            <b-form-group label="User" label-for="username">
-              <b-form-input
-                id="username"
-                ref="username"
-                v-model="form.username"
-                required
-                :state="validation.username.state"
-              />
-              <b-form-invalid-feedback>{{ validation.username.error.join(' - ') }}</b-form-invalid-feedback>
-            </b-form-group>
+  <b-row align-h="center" align-v="center" class="vh-100">
+    <b-col class="auth-form">
+      <b-card bg-variant="light">
+        <b-card-title title="Register" title-tag="h1" class="text-center text-dark font-weight-normal" />
+        <b-form class="mb-3" novalidate @submit.stop.prevent="onSubmit">
+          <b-form-group label="User" label-for="username">
+            <b-form-input
+              id="username"
+              ref="username"
+              v-model="form.username"
+              required
+              :state="validation.username.state"
+            />
+            <b-form-invalid-feedback>{{ validation.username.error.join(' - ') }}</b-form-invalid-feedback>
+          </b-form-group>
 
-            <b-form-group label="Email" label-for="email">
-              <b-form-input
-                id="email"
-                ref="email"
-                v-model="form.email"
-                type="email"
-                required
-                :state="validation.email.state"
-              />
-              <b-form-invalid-feedback>{{ validation.email.error.join(' - ') }}</b-form-invalid-feedback>
-            </b-form-group>
+          <b-form-group label="Email" label-for="email">
+            <b-form-input
+              id="email"
+              ref="email"
+              v-model="form.email"
+              type="email"
+              required
+              :state="validation.email.state"
+            />
+            <b-form-invalid-feedback>{{ validation.email.error.join(' - ') }}</b-form-invalid-feedback>
+          </b-form-group>
 
-            <b-form-group label="Password" label-for="password">
-              <b-form-input
-                id="password"
-                ref="password"
-                v-model="form.password"
-                type="password"
-                required
-                :state="validation.password.state"
-              />
-              <b-form-invalid-feedback>{{ validation.password.error.join(' - ') }}</b-form-invalid-feedback>
-            </b-form-group>
+          <b-form-group label="Password" label-for="password">
+            <b-form-input
+              id="password"
+              ref="password"
+              v-model="form.password"
+              type="password"
+              required
+              :state="validation.password.state"
+            />
+            <b-form-invalid-feedback>{{ validation.password.error.join(' - ') }}</b-form-invalid-feedback>
+          </b-form-group>
 
-            <b-button type="submit" variant="primary" block :disabled="$nuxt.$loading.show">
-              <div class="d-flex align-items-center justify-content-center position-relative">
-                <span>Register</span>
-                <b-spinner v-show="$nuxt.$loading.show" small class="position-absolute right-0" />
-              </div>
-            </b-button>
-          </b-form>
-          <b-card-text class="text-secondary">
-            Already Registered?
-            <nuxt-link to="/login" class="ml-2">
-              <b class="text-nowrap">Login</b>
-            </nuxt-link>
-          </b-card-text>
-        </b-card>
-      </b-col>
-    </b-row>
-  </b-container>
+          <b-button type="submit" variant="primary" block :disabled="$nuxt.$loading.show">
+            <div class="d-flex align-items-center justify-content-center position-relative">
+              <span>Register</span>
+              <b-spinner v-show="$nuxt.$loading.show" small class="position-absolute right-0" />
+            </div>
+          </b-button>
+        </b-form>
+        <b-card-text class="text-secondary">
+          Already Registered?
+          <nuxt-link to="/login" class="ml-2">
+            <b class="text-nowrap">Login</b>
+          </nuxt-link>
+        </b-card-text>
+      </b-card>
+    </b-col>
+  </b-row>
 </template>
 
 <script>

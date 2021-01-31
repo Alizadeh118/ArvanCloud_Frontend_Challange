@@ -4,7 +4,7 @@
     bg-variant="primary"
     text-variant="white"
     visible
-    sidebar-class="position-relative d-none d-md-flex"
+    sidebar-class="position-relative d-none d-lg-flex"
     no-header-close
   >
     <b-nav vertical>
