@@ -34,17 +34,7 @@
             </b-dropdown>
           </div>
         </template>
-
-        <template #table-busy>
-          <div class="text-center text-info my-2">
-            <b-spinner class="align-middle" />
-            <p class="mt-2">
-              Loading...
-            </p>
-          </div>
-        </template>
       </b-table>
-
       <b-pagination-nav
         v-if="pages"
         :value="currentPage"
@@ -88,6 +78,14 @@ export default {
     if (+params.page === 1) {
       return redirect('/articles')
     }
+  },
+  transition (to, from) {
+    // don't use fade transition for browsing between the pages
+    if ((from?.name === 'articles-page-page' && to?.name === 'articles') ||
+      to?.name === 'articles-page-page') {
+      return 'page' // non-existent transition
+    }
+    return 'fade'
   },
   data () {
     return {

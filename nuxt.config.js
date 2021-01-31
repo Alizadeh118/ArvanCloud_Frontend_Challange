@@ -39,6 +39,9 @@ export default {
     '@/assets/styles/app.scss'
   ],
 
+  pageTransition: 'fade',
+  layoutTransition: 'fade',
+
   router: {
     middleware: ['auth'],
     linkActiveClass: 'active',
