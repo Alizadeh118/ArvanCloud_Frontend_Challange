@@ -8,22 +8,16 @@
     no-header-close
   >
     <b-nav vertical>
-      <b-nav-item to="/articles" :active="active" exact>
-        All Articles
-      </b-nav-item>
-      <b-nav-item to="/articles/create">
-        New Article
-      </b-nav-item>
+      <nav-items />
     </b-nav>
   </b-sidebar>
 </template>
 
 <script>
+import NavItems from '@/components/NavItems.vue'
 export default {
-  computed: {
-    active () {
-      return /^\/articles(\/page\/\d+|$)/.test(this.$route.path)
-    }
+  components: {
+    NavItems
   }
 }
 </script>

@@ -73,6 +73,12 @@
 
 <script>
 export default {
+  props: {
+    article: {
+      type: Object,
+      default: null
+    }
+  },
   data () {
     return {
       form: {
@@ -102,6 +108,20 @@ export default {
       }
     }
   },
+  computed: {
+    edit () {
+      return !!this.article
+    }
+  },
+  watch: {
+    article () {
+      if (this.article) {
+        for (const key in this.form) {
+          this.form[key] = this.article[key]
+        }
+      }
+    }
+  },
   created () {
     this.fetchTags()
   },
@@ -126,7 +146,32 @@ export default {
         await this.$store.dispatch('article/store', {
           article: this.form
         })
-        return this.$router.push({ name: 'articles', params: { articleCreated: 'articleCreated' } })
+        return this.$router.push({
+          name: 'articles',
+          params: { articleCreatedOrUpdatedMessage: 'Article created successfully' }
+        })
+      } catch (e) {
+        if (e.response?.data?.errors) {
+          for (const key in e.response.data.errors) {
+            this.validation[key].state = false
+            this.validation[key].error = e.response.data.errors[key]
+          }
+        }
+      } finally {
+        this.$nuxt.$loading.finish()
+      }
+    },
+    async updateArticle () {
+      this.$nuxt.$loading.start()
+      try {
+        await this.$store.dispatch('article/update', {
+          slug: this.article.slug,
+          article: this.form
+        })
+        return this.$router.push({
+          name: 'articles',
+          params: { articleCreatedOrUpdatedMessage: 'Article updated successfully' }
+        })
       } catch (e) {
         if (e.response?.data?.errors) {
           for (const key in e.response.data.errors) {
@@ -150,7 +195,7 @@ export default {
         this.$refs[unvalidated[0]].focus()
         return
       }
-      return this.createArticle()
+      return this.edit ? this.updateArticle() : this.createArticle()
     },
     validateForm () {
       this.resetValidation()

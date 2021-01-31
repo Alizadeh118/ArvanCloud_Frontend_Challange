@@ -1,7 +1,7 @@
 <template>
   <b-row>
     <b-col cols="12">
-      <h1 class="my-3 ss">
+      <h1 class="my-3">
         New Article
       </h1>
     </b-col>

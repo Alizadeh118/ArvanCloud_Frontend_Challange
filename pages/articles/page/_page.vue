@@ -22,8 +22,8 @@
         <template #cell(createdAt)="data">
           <div class="d-flex align-items-center justify-content-end">
             <span class="mr-3">{{ data.value }}</span>
-            <b-dropdown right text="... " variant="info" class="text-white">
-              <b-dropdown-item href="#">
+            <b-dropdown v-if="data.item.author.username === $auth.user.username" right text="... " variant="info" class="text-white">
+              <b-dropdown-item :to="'/articles/edit/' + data.item.slug">
                 Edit
               </b-dropdown-item>
               <b-dropdown-divider />
@@ -64,14 +64,14 @@
 export default {
   beforeRouteEnter (to, from, next) {
     // show the toast if it comes back from /article/create with successful state
-    if (to.params.articleCreated) {
+    if (to.params.articleCreatedOrUpdatedMessage) {
       return next(vm => {
         const error = vm.$createElement(
           'span',
           { class: 'text-nowrap' },
           [
             vm.$createElement('b', 'Well done! '),
-            'Article created successfully'
+            to.params.articleCreatedOrUpdatedMessage
           ]
         )
         vm.$bvToast.toast(error, {

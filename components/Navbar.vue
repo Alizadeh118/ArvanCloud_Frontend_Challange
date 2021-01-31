@@ -16,12 +16,7 @@
     <div class="d-md-none w-100">
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item to="/articles" :active="active" exact>
-            All Articles
-          </b-nav-item>
-          <b-nav-item to="/articles/create">
-            New Article
-          </b-nav-item>
+          <nav-items />
         </b-navbar-nav>
       </b-collapse>
     </div>
@@ -29,11 +24,11 @@
 </template>
 
 <script>
+import NavItems from '@/components/NavItems.vue'
+
 export default {
-  computed: {
-    active () {
-      return /^\/articles(\/page\/\d+|$)/.test(this.$route.path)
-    }
+  components: {
+    NavItems
   }
 }
 </script>
