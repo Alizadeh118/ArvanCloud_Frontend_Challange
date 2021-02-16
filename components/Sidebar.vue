@@ -6,6 +6,7 @@
     visible
     sidebar-class="position-relative d-none d-lg-flex"
     no-header-close
+    no-close-on-route-change
   >
     <b-nav vertical>
       <nav-items />
