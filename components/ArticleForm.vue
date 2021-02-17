@@ -56,7 +56,7 @@
           <b-form-checkbox-group
             v-else
             v-model="form.tagList"
-            :options="$store.state.tag.tags"
+            :options="tagOptions"
             stacked
             class="border pl-3 py-2 rounded"
           />
@@ -89,6 +89,7 @@ export default {
         tagList: []
       },
       tag: '',
+      tags: [],
       fetchingTags: true,
       validation: {
         title: {
@@ -112,6 +113,9 @@ export default {
   computed: {
     edit () {
       return !!this.article
+    },
+    tagOptions () {
+      return [...new Set([...this.form.tagList, ...this.$store.state.tag.tags])]
     }
   },
   watch: {
