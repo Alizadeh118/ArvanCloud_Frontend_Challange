@@ -161,7 +161,7 @@ export default {
   methods: {
     fetchArticles () {
       this.busy = true
-      this.$store.dispatch('article/index', this.currentPage - 1)
+      this.$store.dispatch('article/index', this.perPage * this.currentPage)
         .catch(e => {
           this.$bvToast.toast('The articles could not be fetched', {
             title: 'API Error',
